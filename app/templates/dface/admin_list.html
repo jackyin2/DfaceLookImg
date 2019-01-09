@@ -1,0 +1,85 @@
+
+
+{% extends 'dface/admin.html' %}
+
+{% block content %}
+    <section class="content-header">
+        <h1>微电影管理系统</h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 管理员管理</a></li>
+            <li class="active">管理员列表</li>
+        </ol>
+    </section>
+    <section class="content" id="showcontent">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">管理员列表</h3>
+                        <div class="box-tools">
+
+                        </div>
+                    </div>
+                    <div class="box-body table-responsive no-padding">
+                        <form method="post" action="{{ url_for("Dface.verity_list") }}">
+                            <input type="text" name="deployid" class="form-control pull-right"
+                                   placeholder="请输入任务id">
+                            <input type="text" name="sourceid" class="form-control pull-right"
+                                   placeholder="请输入视频源id">
+                            <button id="btn" name="btn" >进入确认</button>
+                        </form>
+
+                    </div>
+                    <div class="box-footer clearfix">
+                        {#                        <ul class="pagination pagination-sm no-margin pull-right">#}
+                        {#                            <li><a href="#">首页</a></li>#}
+                        {#                            <li><a href="#">上一页</a></li>#}
+                        {#                            <li><a href="#">1</a></li>#}
+                        {#                            <li><a href="#">2</a></li>#}
+                        {#                            <li><a href="#">3</a></li>#}
+                        {#                            <li><a href="#">下一页</a></li>#}
+                        {#                            <li><a href="#">尾页</a></li>#}
+                        {#                        </ul>#}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+
+{% block js %}
+
+    {#    <script>#}
+    {#        $(document).ready(function () {#}
+    {#            $('#g-1').addClass("active");#}
+    {#            $('#g-1-1').addClass("active")#}
+    {#        })#}
+    {#    </script>#}
+{#    <script type="application/javascript">#}
+{#        $(document).ready(function () {#}
+{#            $("#btn").click(function () {#}
+{#                var deployid = $('#deployid').val();#}
+{#                var id = $('#id').val();#}
+{#                var sourceid = $('#sourceid').val();#}
+{#                var data = { "deployid": deployid, "sourceid": sourceid };#}
+{#                $.ajax({#}
+{#                    type: 'POST',#}
+{#                    url: '{{ url_for("Dface.verity_list") }}',#}
+{#                    data: JSON.stringify({'a':1,'b':2}),#}
+{#                    contentType: 'application/json',#}
+{#                    success: function(res) {#}
+{#                        alert("成功");#}
+{#                    },#}
+{#                    error: function (res) {#}
+{#                        alert("失败")#}
+{#                    }#}
+{##}
+{#                })#}
+{#            })#}
+{#        })#}
+{#    </script>#}
+
+{% endblock %}
+
+

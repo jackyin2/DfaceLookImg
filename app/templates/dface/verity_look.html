@@ -1,0 +1,146 @@
+
+
+{% extends 'dface/admin.html' %}
+
+{% block content %}
+    <section class="content-header">
+        <h1>微电影管理系统</h1>
+        <ol class="breadcrumb">
+            <li><a href="#"><i class="fa fa-dashboard"></i> 管理员管理</a></li>
+            <li class="active">管理员列表</li>
+        </ol>
+    </section>
+    <section class="content" id="showcontent">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <h3 class="box-title">管理员列表</h3>
+                        <div class="box-tools">
+                            成功个数：<input id="suc" value="{{ suc_count[0][0] }}">
+                            错误个数：<input id="err" value="{{ err_count[0][0] }}">
+{#                            <button id="ti">统计结果</button>#}
+                        </div>
+
+                    </div>
+                    <div class="box-body table-responsive no-padding">
+                        <div id="p0" data-value="{{ alertid }}">
+                            <span id="alertid">id: {{ alertid }}</span>
+
+                            {#                            <input id="deployid" type="" value="{{}}">#}
+                            {#                            <input id="alertid" type="" value="">#}
+                            {#                            <input id="sourceid" type="" value="">#}
+                        </div>
+                        <table class="table table-hover">
+                            <tbody>
+                            <tr>
+                                <th>Capture</th>
+                                <th>Face</th>
+                            </tr>
+                            <tr>
+
+                                <td><img id="img1" src="{{ alert[0][1]|qiepian(19)|pingjie("http://172.16.1.6/pic") }}"
+                                         class="img-responsive center-block" alt=""></td>
+                                <td><img id="img1" src="{{ alert[0][2]|qiepian(19)|pingjie("http://172.16.1.6/pic") }}"
+                                         style="width: 200px" class="img-responsive center-block" alt=""></td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="box-footer clearfix" style="text-align: center">
+                        <div class="input-group input-group-sm">
+
+                            <div id="p1" class="input-group-btn" data-value="{{ alert[0][4] }}">
+                                <button type="submit" id="pipei" name="pipei" class="btn btn-default" value="1"><i
+                                        class="fa fa-search" data-value="yes">匹配</i>
+                                </button>
+                            </div>
+                            <div id="p2" class="input-group-btn" data-value="{{ alert[0][5] }}">
+                                <button type="submit" id="bupipei" name="bupipei" class="btn btn-default" value="0"><i
+                                        class="fa fa-search" data-value="yes">不匹配</i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}
+
+
+{% block js %}
+
+    <script>
+        $(document).ready(function () {
+            $('#tj').click(function () {
+                var suc = $('#suc').attr('value', data.suc_count);
+                var err = $('#err').attr('value', data.err_count);
+            });
+            $("#pipei").click(function () {
+
+                var alertid = $('#p0').attr('data-value');
+                var sourceid = $('#p2').attr('data-value');
+                var deployid = $('#p1').attr('data-value');
+                var data = {
+                    "alertid": alertid,
+                    'sourceid': sourceid,
+                    'deployid': deployid,
+                    "yesornot": 1
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ url_for("Dface.verity_ajax") }}',
+                    data: data,
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status == "success") {
+
+
+                            window.location.href = "\\verity_look\\" + data.alertnext;
+                            alert(data.msg);
+                        }
+                    },
+                    error: function (data) {
+                        alert("匹配结束")
+
+                    }
+                })
+            });
+            $("#bupipei").click(function () {
+                var alertid = $('#p0').attr('data-value');
+                var sourceid = $('#p2').attr('data-value');
+                var deployid = $('#p1').attr('data-value');
+                var data = {
+                    "alertid": alertid,
+                    'sourceid': sourceid,
+                    'deployid': deployid,
+                    "yesornot": 0
+                };
+                $.ajax({
+                    type: 'POST',
+                    url: '{{ url_for("Dface.verity_ajax") }}',
+                    data: data,
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status == "success") {
+
+                            var suc = $('#suc').attr('value', data.suc_count);
+                            var err = $('#err').attr('value', data.err_count);
+                            window.location.href = "\\verity_look\\" + data.alertnext;
+                            alert(data.msg);
+                        }
+                    },
+                    error: function (data) {
+                        alert("失败了")
+                    }
+                })
+            });
+        })
+    </script>
+
+
+
+{% endblock %}
+
+

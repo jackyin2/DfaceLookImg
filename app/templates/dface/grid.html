@@ -1,0 +1,22 @@
+<ul class="sidebar-menu">
+    <li class="header">管理菜单</li>
+    <li class="treeview" id="g-1">
+        <a href="#">
+            <i class="fa fa-home" aria-hidden="true"></i>
+            <span>首页</span>
+            <span class="label label-primary pull-right">1</span>
+        </a>
+        <ul class="treeview-menu">
+            <li id="g-1-1">
+                <a href="{{ url_for('Dface.index') }}">
+                    <i class="fa fa-circle-o">告警记录</i>
+                </a>
+            </li>
+            <li id="g-1-2">
+                <a href="{{ url_for('Dface.index') }}">
+                    <i class="fa fa-circle-o">待更新</i>
+                </a>
+            </li>
+        </ul>
+    </li>
+</ul>
